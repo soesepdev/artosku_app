@@ -51,6 +51,16 @@ export default function RegisterPage() {
         backgroundColor: '#fff',
       }}>
         <div style={{ width: '100%', maxWidth: 400 }}>
+          <div style={{ textAlign: 'center' }}>
+            <img
+              src="https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png" // pastikan file ada di folder public
+              alt="Logo Artosku"
+              style={{
+                width: 200,
+                height: 'auto',
+              }}
+            />
+          </div>
           <Form layout="vertical" onFinish={onFinish} style={{ padding: 10 }}>
             <Form.Item
               label="Nama Lengkap"
