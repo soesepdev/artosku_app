@@ -14,20 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/*"
-          element={
-            <Layout style={{ minHeight: "100vh" }}>
-              <Layout>
-                <Content style={{ margin: "16px" }}>
-                  <Routes>
-                    <Route path="/home" element={<Dashboard />} />
-                  </Routes>
-                </Content>
-              </Layout>
-            </Layout>
-          }
-        />
+        <Route path="/home" element={<Dashboard />} />
       </Routes>
     </Router>
   );
