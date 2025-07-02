@@ -1,11 +1,11 @@
 'use client';
-import { Layout, Menu, Dropdown, Avatar, Button } from 'antd';
+import { Layout, Menu, Avatar, Dropdown, Button } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
-  LogoutOutlined,
   DashboardOutlined,
+  LogoutOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -31,7 +31,7 @@ export default function DashboardPage() {
     router.push('/login');
   };
 
-  const menuDropdown = (
+  const dropdownMenu = (
     <Menu>
       <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={handleLogout}>
         Logout
@@ -41,43 +41,61 @@ export default function DashboardPage() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      {/* Sidebar */}
-      <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
-        <div style={{ height: 64, margin: 16, color: '#fff', textAlign: 'center', fontWeight: 'bold' }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={setCollapsed}
+        width={250}
+        style={{
+          background: '#001529',
+          margin: 0
+        }}
+      >
+        <div
+          style={{
+            height: 64,
+            color: '#fff',
+            textAlign: 'center',
+            fontWeight: 'bold',
+            fontSize: 18,
+            lineHeight: '64px',
+          }}
+        >
           {collapsed ? 'A' : 'Artosku'}
         </div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1" icon={<DashboardOutlined />}>
-            Dashboard
-          </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined />}>
-            Profil
+            Home
           </Menu.Item>
         </Menu>
       </Sider>
 
-      {/* Main */}
       <Layout>
-        <Header style={{ background: '#fff', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {/* Sidebar Toggle Button */}
+        <Header
+          style={{
+            background: '#fff',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            height: 64,
+          }}
+        >
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
           />
 
-          {/* Right dropdown */}
-          <Dropdown overlay={menuDropdown} placement="bottomRight">
-            <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Dropdown overlay={dropdownMenu}>
+            <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
               <Avatar icon={<UserOutlined />} />
-              <span>{username}</span>
+              <span style={{ marginLeft: 8 }}>{username}</span>
             </div>
           </Dropdown>
         </Header>
 
-        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
-          <h1>Selamat datang, {username} 👋</h1>
-          <p>Ini adalah halaman dashboard utama.</p>
+        <Content style={{ margin: 0, padding: 24, background: '#fff' }}>
+          <h1>Selamat datang, {username}</h1>
         </Content>
       </Layout>
     </Layout>
