@@ -44,22 +44,22 @@ export default function DashboardPage() {
   };
 
   const handleMenuClick = ({ key }) => {
-    // switch (key) {
-    //   case 'home':
-    //     navigate('/dashboard');
-    //     break;
-    //   case 'pemasukan':
-    //     navigate('/pemasukan');
-    //     break;
-    //   case 'pengeluaran':
-    //     navigate('/pengeluaran');
-    //     break;
-    //   case 'icon':
-    //     navigate('/icon');
-    //     break;
-    //   default:
-    //     break;
-    // }
+    switch (key) {
+      case 'home':
+        navigate('/dashboard');
+        break;
+      // case 'pemasukan':
+      //   navigate('/pemasukan');
+      //   break;
+      // case 'pengeluaran':
+      //   navigate('/pengeluaran');
+      //   break;
+      // case 'icon':
+      //   navigate('/icon');
+      //   break;
+      // default:
+      //   break;
+    }
   };
 
   return (
