@@ -62,7 +62,14 @@ export default function Login() {
             />
           </div>
 
-          <Form layout="vertical" onFinish={handleSubmit} style={{ padding: 10 }}>
+          <Form layout="vertical" 
+            onFinish={handleSubmit} 
+            style={{ padding: 10 }}
+            initialValues={{
+              email: 'admin@email.com',
+              password: 'admin123',
+            }}
+          >
             <Form.Item
               label="Email"
               name="email"
