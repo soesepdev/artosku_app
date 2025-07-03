@@ -44,26 +44,22 @@ export default function DashboardPage() {
   };
 
   const handleMenuClick = ({ key }) => {
-    // Routing berdasarkan key menu
-    switch (key) {
-      case 'home':
-        navigate('/dashboard');
-        break;
-      case 'pemasukan':
-        navigate('/pemasukan');
-        break;
-      case 'pengeluaran':
-        navigate('/pengeluaran');
-        break;
-      case 'icon':
-        navigate('/icon');
-        break;
-      case 'kategori':
-        navigate('/kategori');
-        break;
-      default:
-        break;
-    }
+    // switch (key) {
+    //   case 'home':
+    //     navigate('/dashboard');
+    //     break;
+    //   case 'pemasukan':
+    //     navigate('/pemasukan');
+    //     break;
+    //   case 'pengeluaran':
+    //     navigate('/pengeluaran');
+    //     break;
+    //   case 'icon':
+    //     navigate('/icon');
+    //     break;
+    //   default:
+    //     break;
+    // }
   };
 
   return (
@@ -122,11 +118,6 @@ export default function DashboardPage() {
               label: 'Master',
               type: 'group',
               children: [
-                {
-                  key: 'icon',
-                  icon: <UserOutlined />,
-                  label: 'Icon',
-                },
                 {
                   key: 'kategori',
                   icon: <TagsOutlined />,

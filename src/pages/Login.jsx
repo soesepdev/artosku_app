@@ -53,7 +53,7 @@ export default function Login() {
 
           <div style={{ textAlign: 'center'}}>
             <img
-              src="https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png" // pastikan file ada di folder public
+              src="https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png"
               alt="Logo Artosku"
               style={{
                 width: 200,
