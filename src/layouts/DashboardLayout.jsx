@@ -6,34 +6,41 @@ import {
   Avatar,
   Dropdown,
   Button,
-  Typography,
 } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   DashboardOutlined,
-  DollarCircleOutlined,
   DownloadOutlined,
   UploadOutlined,
-  AppstoreOutlined,
-  UserOutlined,
   TagsOutlined,
   LogoutOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
 
-export default function DashboardPage() {
+export default function DashboardLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.setItem("auth", "false");
     navigate('/');
+    window.location.reload();
   };
 
   const dropdownMenu = {
     items: [
+      {
+        key: 'profile',
+        icon: <UserOutlined />,
+        label: 'Profile',
+        onClick: () => navigate('/profile'),
+      },
+      {
+        type: 'divider',
+      },
       {
         key: 'logout',
         icon: <LogoutOutlined />,
@@ -54,11 +61,11 @@ export default function DashboardPage() {
       // case 'pengeluaran':
       //   navigate('/pengeluaran');
       //   break;
-      // case 'icon':
-      //   navigate('/icon');
+      // case 'kategori':
+      //   navigate('/kategori');
       //   break;
-      // default:
-      //   break;
+      default:
+        break;
     }
   };
 
@@ -155,8 +162,7 @@ export default function DashboardPage() {
         </Header>
 
         <Content style={{ margin: 0, padding: 24, background: '#fff', minHeight: 'calc(100vh - 64px)' }}>
-          <Typography.Title level={3}>Selamat datang, Admin 👋</Typography.Title>
-          <p>Ini adalah halaman dashboard utama.</p>
+          {children}
         </Content>
       </Layout>
     </Layout>

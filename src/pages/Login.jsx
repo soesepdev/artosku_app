@@ -7,7 +7,7 @@ export default function Login() {
   const handleSubmit = (values) => {
     if (values.email === 'admin@email.com' && values.password === 'admin123') {
       localStorage.setItem("auth", "true");
-      navigate("/dashboard");
+      navigate("/home");
     } else {
       message.error('Email atau password salah!');
     }
