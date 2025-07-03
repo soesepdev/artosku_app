@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Layout,
@@ -25,34 +25,46 @@ const { Header, Sider, Content } = Layout;
 
 export default function DashboardPage() {
   const [collapsed, setCollapsed] = useState(false);
-  const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isAuthenticated()) {
-  //     navigate('/login');
-  //   } else {
-  //     setUsername(getUsername());
-  //   }
-  // }, [navigate]);
-
   const handleLogout = () => {
-    logout();
-    navigate('/login');
+    localStorage.setItem("auth", "false");
+    navigate('/');
   };
 
-  const dropdownMenu = (
-    <Menu
-      items={[
-        {
-          key: 'logout',
-          icon: <LogoutOutlined />,
-          label: 'Logout',
-          onClick: handleLogout,
-        },
-      ]}
-    />
-  );
+  const dropdownMenu = {
+    items: [
+      {
+        key: 'logout',
+        icon: <LogoutOutlined />,
+        label: 'Logout',
+        onClick: handleLogout,
+      },
+    ],
+  };
+
+  const handleMenuClick = ({ key }) => {
+    // Routing berdasarkan key menu
+    switch (key) {
+      case 'home':
+        navigate('/dashboard');
+        break;
+      case 'pemasukan':
+        navigate('/pemasukan');
+        break;
+      case 'pengeluaran':
+        navigate('/pengeluaran');
+        break;
+      case 'icon':
+        navigate('/icon');
+        break;
+      case 'kategori':
+        navigate('/kategori');
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -61,9 +73,7 @@ export default function DashboardPage() {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
         width={220}
-        style={{
-          background: '#001529',
-        }}
+        style={{ background: '#001529' }}
       >
         <div
           style={{
@@ -83,6 +93,7 @@ export default function DashboardPage() {
           mode="inline"
           defaultSelectedKeys={['home']}
           style={{ borderRight: 0 }}
+          onClick={handleMenuClick}
           items={[
             {
               key: 'home',
@@ -90,9 +101,9 @@ export default function DashboardPage() {
               label: 'Home',
             },
             {
-              type: 'group',
-              key: 'transaksi',
+              key: 'transaksi-group',
               label: 'Transaksi',
+              type: 'group',
               children: [
                 {
                   key: 'pemasukan',
@@ -105,13 +116,11 @@ export default function DashboardPage() {
                   label: 'Pengeluaran',
                 },
               ],
-              icon: <DollarCircleOutlined />,
             },
             {
-              type: 'group',
-              key: 'master',
+              key: 'master-group',
               label: 'Master',
-              icon: <AppstoreOutlined />,
+              type: 'group',
               children: [
                 {
                   key: 'icon',
@@ -146,16 +155,16 @@ export default function DashboardPage() {
             onClick={() => setCollapsed(!collapsed)}
           />
 
-          <Dropdown overlay={dropdownMenu} placement="bottomRight">
+          <Dropdown menu={dropdownMenu} placement="bottomRight">
             <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
               <Avatar icon={<UserOutlined />} />
-              <span>{username}</span>
+              <span>Admin</span>
             </div>
           </Dropdown>
         </Header>
 
         <Content style={{ margin: 0, padding: 24, background: '#fff', minHeight: 'calc(100vh - 64px)' }}>
-          <Typography.Title level={3}>Selamat datang, {username} 👋</Typography.Title>
+          <Typography.Title level={3}>Selamat datang, Admin 👋</Typography.Title>
           <p>Ini adalah halaman dashboard utama.</p>
         </Content>
       </Layout>
