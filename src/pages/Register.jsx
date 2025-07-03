@@ -1,21 +1,18 @@
-'use client';
-import { Button, Form, Input, Typography } from 'antd';
-import { useRouter } from 'next/navigation';
-import { login } from '@/utils/auth';
-import Link from 'next/link';
+import { useNavigate, Link } from "react-router-dom";
+import { Button, Form, Input, Typography, message } from 'antd';
 
-export default function LoginPage() {
-  const router = useRouter();
+export default function Register() {
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    login(values.email);
-    router.push('/dashboard');
+  const handleSubmit = (values) => {
+    console.log(values)
+    message.success('Akun berhasil dibuat!');
+    navigate("/");
   };
 
   return (
     <div style={{ display: 'flex', height: '100vh' }}>
-      
-      {/* KIRI - Gambar tengah + Teks */}
+
       <div style={{
         flex: 2,
         backgroundColor: '#EAEFEF',
@@ -38,11 +35,10 @@ export default function LoginPage() {
         />
 
         <Typography.Title level={3} style={{ textAlign: 'center', color: '#333' }}>
-          Artosku bantu kamu kelola keuangan lebih mudah & rapi
+          <b>artosku</b> bantu kamu kelola keuangan lebih mudah & rapi
         </Typography.Title>
       </div>
 
-      {/* KANAN - Form Login */}
       <div style={{
         flex: 1,
         display: 'flex',
@@ -51,17 +47,28 @@ export default function LoginPage() {
         backgroundColor: '#fff',
       }}>
         <div style={{ width: '100%', maxWidth: 400 }}>
-          <div style={{ textAlign: 'center'}}>
+
+          <div style={{ textAlign: 'center' }}>
             <img
               src="https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png" // pastikan file ada di folder public
-              alt="Logo Artosku"
+              alt="artosku"
               style={{
                 width: 200,
                 height: 'auto',
               }}
             />
           </div>
-          <Form layout="vertical" onFinish={onFinish} style={{ padding: 10 }}>
+
+          <Form layout="vertical" onFinish={handleSubmit} style={{ padding: 10 }}>
+            <Form.Item
+              label="Nama Lengkap"
+              name="nama"
+              rules={[{ required: true, message: 'Masukkan nama lengkap Anda!' }]}
+              style={{ marginBottom: 20 }}
+            >
+              <Input style={{ paddingTop: 7, paddingBottom: 7, borderRadius: 12 }} />
+            </Form.Item>
+
             <Form.Item
               label="Email"
               name="email"
@@ -78,15 +85,29 @@ export default function LoginPage() {
               label="Password"
               name="password"
               rules={[{ required: true, message: 'Masukkan password!' }]}
-              style={{ marginBottom: 0 }}
+              style={{ marginBottom: 20 }}
             >
               <Input.Password style={{ paddingTop: 7, paddingBottom: 7, borderRadius: 12 }} />
             </Form.Item>
 
-            <Form.Item style={{ marginTop: 0, textAlign: 'end' }}>
-              <Typography.Text>
-                <Link href="/">Lupa Password?</Link>
-              </Typography.Text>
+            <Form.Item
+              label="Konfirmasi Password"
+              name="confirmPassword"
+              dependencies={['password']}
+              hasFeedback
+              rules={[
+                { required: true, message: 'Konfirmasi password Anda!' },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Password tidak cocok!'));
+                  },
+                }),
+              ]}
+            >
+              <Input.Password style={{ paddingTop: 7, paddingBottom: 7, borderRadius: 12 }} />
             </Form.Item>
 
             <Form.Item>
@@ -96,13 +117,13 @@ export default function LoginPage() {
                 borderRadius: 12,
                 backgroundColor: '#0D5EA6'
               }}>
-                Login
+                Daftar
               </Button>
             </Form.Item>
 
             <Form.Item style={{ marginTop: 0, textAlign: 'center' }}>
               <Typography.Text>
-                Belum punya akun? <Link href="/register">Daftar</Link>
+                Sudah punya akun? <Link to="/">Login</Link>
               </Typography.Text>
             </Form.Item>
           </Form>

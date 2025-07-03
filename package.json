@@ -1,25 +1,22 @@
 {
-  "name": "app-artosku",
-  "version": "0.1.0",
+  "name": "artosku-app",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "antd": "^5.26.3",
-    "next": "15.3.4",
-    "nextjs-toploader": "^3.8.16",
-    "nprogress": "^0.2.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.30.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
+    "@vitejs/plugin-react": "^4.5.2",
     "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11"
+    "vite": "^6.3.5"
   }
 }

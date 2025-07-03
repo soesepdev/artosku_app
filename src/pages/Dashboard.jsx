@@ -1,7 +1,13 @@
-'use client';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Layout, Menu, Avatar, Dropdown, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import {
+  Layout,
+  Menu,
+  Avatar,
+  Dropdown,
+  Button,
+  Typography,
+} from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -14,49 +20,51 @@ import {
   TagsOutlined,
   LogoutOutlined,
 } from '@ant-design/icons';
-import { isAuthenticated, logout, getUsername } from '@/utils/auth';
 
 const { Header, Sider, Content } = Layout;
 
 export default function DashboardPage() {
   const [collapsed, setCollapsed] = useState(false);
   const [username, setUsername] = useState('');
-  const router = useRouter();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push('/login');
-    } else {
-      setUsername(getUsername());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!isAuthenticated()) {
+  //     navigate('/login');
+  //   } else {
+  //     setUsername(getUsername());
+  //   }
+  // }, [navigate]);
 
   const handleLogout = () => {
     logout();
-    router.push('/login');
+    navigate('/login');
   };
 
   const dropdownMenu = (
-    <Menu>
-      <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={handleLogout}>
-        Logout
-      </Menu.Item>
-    </Menu>
+    <Menu
+      items={[
+        {
+          key: 'logout',
+          icon: <LogoutOutlined />,
+          label: 'Logout',
+          onClick: handleLogout,
+        },
+      ]}
+    />
   );
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      {/* Sidebar */}
       <Sider
         collapsible
         collapsed={collapsed}
-        onCollapse={setCollapsed}
+        onCollapse={(value) => setCollapsed(value)}
         width={220}
         style={{
           background: '#001529',
         }}
       >
-        {/* Logo Area (hapus margin!) */}
         <div
           style={{
             height: 64,
@@ -75,32 +83,52 @@ export default function DashboardPage() {
           mode="inline"
           defaultSelectedKeys={['home']}
           style={{ borderRight: 0 }}
-        >
-          <Menu.Item key="home" icon={<DashboardOutlined />}>
-            Home
-          </Menu.Item>
-
-          <Menu.SubMenu key="transaksi" icon={<DollarCircleOutlined />} title="Transaksi">
-            <Menu.Item key="pemasukan" icon={<DownloadOutlined />}>
-              Pemasukan
-            </Menu.Item>
-            <Menu.Item key="pengeluaran" icon={<UploadOutlined />}>
-              Pengeluaran
-            </Menu.Item>
-          </Menu.SubMenu>
-
-          <Menu.SubMenu key="master" icon={<AppstoreOutlined />} title="Master">
-            <Menu.Item key="icon" icon={<UserOutlined />}>
-              Icon
-            </Menu.Item>
-            <Menu.Item key="kategori" icon={<TagsOutlined />}>
-              Kategori
-            </Menu.Item>
-          </Menu.SubMenu>
-        </Menu>
+          items={[
+            {
+              key: 'home',
+              icon: <DashboardOutlined />,
+              label: 'Home',
+            },
+            {
+              type: 'group',
+              key: 'transaksi',
+              label: 'Transaksi',
+              children: [
+                {
+                  key: 'pemasukan',
+                  icon: <DownloadOutlined />,
+                  label: 'Pemasukan',
+                },
+                {
+                  key: 'pengeluaran',
+                  icon: <UploadOutlined />,
+                  label: 'Pengeluaran',
+                },
+              ],
+              icon: <DollarCircleOutlined />,
+            },
+            {
+              type: 'group',
+              key: 'master',
+              label: 'Master',
+              icon: <AppstoreOutlined />,
+              children: [
+                {
+                  key: 'icon',
+                  icon: <UserOutlined />,
+                  label: 'Icon',
+                },
+                {
+                  key: 'kategori',
+                  icon: <TagsOutlined />,
+                  label: 'Kategori',
+                },
+              ],
+            },
+          ]}
+        />
       </Sider>
 
-      {/* Main Layout */}
       <Layout>
         <Header
           style={{
@@ -127,7 +155,7 @@ export default function DashboardPage() {
         </Header>
 
         <Content style={{ margin: 0, padding: 24, background: '#fff', minHeight: 'calc(100vh - 64px)' }}>
-          <h1>Selamat datang, {username} 👋</h1>
+          <Typography.Title level={3}>Selamat datang, {username} 👋</Typography.Title>
           <p>Ini adalah halaman dashboard utama.</p>
         </Content>
       </Layout>
