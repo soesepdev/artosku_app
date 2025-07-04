@@ -41,7 +41,7 @@ export default function DashboardHeader({ collapsed, toggleSidebar }) {
     <div
       style={{
         background: '#fff',
-        padding: '0 24px',
+        padding: '0 30px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',

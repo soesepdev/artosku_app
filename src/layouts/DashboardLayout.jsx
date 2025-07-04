@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }) {
           <DashboardHeader collapsed={collapsed} toggleSidebar={toggleSidebar} />
         </Header>
 
-        <Content style={{ margin: 0, padding: 24, background: '#fff', minHeight: 'calc(100vh - 64px)' }}>
+        <Content style={{ margin: 0, paddingLeft: 24, paddingRight: 24, background: '#fff', minHeight: 'calc(100vh - 64px)' }}>
           {children}
         </Content>
       </Layout>
