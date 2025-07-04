@@ -12,7 +12,7 @@ export default function DashboardHeader({ collapsed, toggleSidebar }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.setItem('auth', 'false');
+    localStorage.setItem('token', '');
     navigate('/');
     window.location.reload();
   };

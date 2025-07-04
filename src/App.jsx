@@ -20,9 +20,9 @@ import DashboardLayout from "./layouts/DashboardLayout";
 
 function App() {
   const ProtectedLayout = () => {
-    const isLoggedIn = localStorage.getItem("auth");
+    const isLoggedIn = localStorage.getItem("token");
 
-    return isLoggedIn === "true" ? (
+    return isLoggedIn ? (
       <DashboardLayout>
         <Outlet />
       </DashboardLayout>

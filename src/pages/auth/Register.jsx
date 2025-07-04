@@ -1,18 +1,31 @@
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { Button, Form, Input, Typography, message } from 'antd';
 
 export default function Register() {
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSubmit = (values) => {
-    console.log(values)
+    console.log(values);
     message.success('Akun berhasil dibuat!');
     navigate("/");
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-
+    <div style={{
+      display: 'flex',
+      flexDirection: isMobile ? 'column' : 'row',
+      height: '100vh',
+    }}>
       <div style={{
         flex: 2,
         backgroundColor: '#EAEFEF',
@@ -21,22 +34,24 @@ export default function Register() {
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        height: isMobile ? 300 : 'auto'
       }}>
         <img
           src="https://cdni.iconscout.com/illustration/premium/thumb/financial-management-illustration-download-in-svg-png-gif-file-formats--analytics-logo-businessman-managing-investment-growth-money-business-finance-pack-professionals-illustrations-4309053.png"
           alt="Banner"
           style={{
-            width: '60%',
+            width: isMobile ? '80%' : '60%',
             height: 250,
             objectFit: 'cover',
             borderRadius: 12,
             marginBottom: 20,
           }}
         />
-
-        <Typography.Title level={3} style={{ textAlign: 'center', color: '#333' }}>
-          <b>artosku</b> bantu kamu kelola keuangan lebih mudah & rapi
-        </Typography.Title>
+        {!isMobile && (
+          <Typography.Title level={3} style={{ textAlign: 'center', color: '#333' }}>
+            <b>artosku</b> bantu kamu kelola keuangan lebih mudah & rapi
+          </Typography.Title>
+        )}
       </div>
 
       <div style={{
@@ -45,17 +60,14 @@ export default function Register() {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
+        padding: 24
       }}>
         <div style={{ width: '100%', maxWidth: 400 }}>
-
           <div style={{ textAlign: 'center' }}>
             <img
-              src="https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png" // pastikan file ada di folder public
+              src="https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png"
               alt="artosku"
-              style={{
-                width: 200,
-                height: 'auto',
-              }}
+              style={{ width: 200, height: 'auto' }}
             />
           </div>
 
@@ -111,12 +123,17 @@ export default function Register() {
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" block style={{
-                paddingTop: 18,
-                paddingBottom: 18,
-                borderRadius: 12,
-                backgroundColor: '#0D5EA6'
-              }}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                block
+                style={{
+                  paddingTop: 18,
+                  paddingBottom: 18,
+                  borderRadius: 12,
+                  backgroundColor: '#0D5EA6'
+                }}
+              >
                 Daftar
               </Button>
             </Form.Item>
