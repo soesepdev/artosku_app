@@ -1,4 +1,3 @@
-// layouts/DashboardHeader.jsx
 import { Button, Avatar, Dropdown } from 'antd';
 import {
   MenuFoldOutlined,
@@ -41,23 +40,27 @@ export default function DashboardHeader({ collapsed, toggleSidebar }) {
     <div
       style={{
         background: '#fff',
-        padding: '0 30px',
+        padding: '0 16px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         height: 64,
+        position: 'sticky', // optional, can remove if layout manages it
+        top: 0,
+        zIndex: 100,
       }}
     >
       <Button
         type="text"
         icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         onClick={toggleSidebar}
+        style={{ fontSize: 18 }}
       />
 
-      <Dropdown menu={dropdownMenu} placement="bottomRight">
+      <Dropdown menu={dropdownMenu} placement="bottomRight" arrow>
         <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Avatar icon={<UserOutlined />} />
-          <span>Admin</span>
+          <Avatar size="small" icon={<UserOutlined />} />
+          <span style={{ fontSize: 14, fontWeight: 500 }}>Admin</span>
         </div>
       </Dropdown>
     </div>

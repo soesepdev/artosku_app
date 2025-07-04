@@ -13,36 +13,70 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ height: '100vh', overflow: 'hidden' }}>
       <Sider
-        collapsible
         collapsed={collapsed}
-        onCollapse={setCollapsed}
         width={220}
-        style={{ background: '#001529' }}
+        style={{
+          background: '#fff',
+          boxShadow: '2px 0 8px rgba(0, 0, 0, 0.05)',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          zIndex: 100,
+        }}
       >
+        {/* ✅ Logo pakai URL */}
         <div
           style={{
             height: 64,
-            color: '#fff',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 18,
-            lineHeight: '64px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0 16px',
+            borderBottom: '1px solid #f0f0f0',
           }}
         >
-          {collapsed ? 'A' : 'Artosku'}
+          <img
+            src={collapsed ? 'https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png' : 'https://aqbgvzzymp.cloudimg.io/v7/barokahabadi.co.id/wp-content/uploads/2020/11/dummy-logo-1b.png'}
+            alt="Logo"
+            style={{
+              height: 70 ,
+              transition: 'all 0.2s',
+              objectFit: 'contain',
+            }}
+          />
         </div>
+
         <SidebarMenu />
       </Sider>
 
-      <Layout>
-        <Header style={{ padding: 0 }}>
+      <Layout style={{ marginLeft: collapsed ? 80 : 220, transition: 'all 0.2s' }}>
+        <Header style={{ background: '#fff', padding: 0 }}>
           <DashboardHeader collapsed={collapsed} toggleSidebar={toggleSidebar} />
         </Header>
 
-        <Content style={{ margin: 0, paddingLeft: 24, paddingRight: 24, background: '#fff', minHeight: 'calc(100vh - 64px)' }}>
-          {children}
+        <Content
+          style={{
+            padding: 24,
+            background: '#f5f5f5',
+            height: 'calc(100vh - 64px)',
+            overflowY: 'auto',
+          }}
+        >
+          <div
+            style={{
+              background: '#fff',
+              padding: 24,
+              borderRadius: 8,
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+              minHeight: 360,
+            }}
+          >
+            {children}
+          </div>
         </Content>
       </Layout>
     </Layout>
